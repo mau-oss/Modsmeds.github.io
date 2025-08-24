@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ModsMeds: Centro Médico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul-profundo: #003f88;
+      --celeste: #a9d6e5;
+      --verde-esmeralda: #00b894;
+      --gris-azulado: #e0e7ef;
+      --gris-oscuro: #2c3e50;
+      --blanco: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--gris-azulado);
+      color: var(--gris-oscuro);
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--azul-profundo), var(--verde-esmeralda));
+      color: var(--blanco);
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    nav {
+      background-color: var(--celeste);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--azul-profundo);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: linear-gradient(to right, var(--celeste), var(--verde-esmeralda));
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      color: var(--blanco);
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1588776814546-ec7d2c3f9b6e') center/cover no-repeat;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blanco);
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+      box-shadow: inset 0 -100px 100px rgba(0,0,0,0.2);
+    }
+
+    #hero-text {
+      animation: typing 4s steps(60, end), blink 0.75s step-end infinite;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid var(--blanco);
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .section {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--azul-profundo);
+      border-left: 6px solid var(--verde-esmeralda);
+      padding-left: 1rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--blanco);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .equipo-bg {
+      background: url('https://images.unsplash.com/photo-1603398938378-3fbbf8f9b6e1') center/cover no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      padding: 3rem 2rem;
+      color: var(--blanco);
+      box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.5);
+    }
+
+    .equipo-bg h2 {
+      color: var(--celeste);
+    }
+
+    .equipo-bg .card {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      color: var(--blanco);
+    }
+
+    footer {
+      background: linear-gradient(to right, var(--azul-profundo), var(--verde-esmeralda));
+      color: var(--blanco);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ModsMeds: Centro de salud</h1>
+    <p>Excelencia en salud, tecnología y atención humana. Si no valoras, no nos preocupamos de tu salud</p>
+  </header>
+
+  <nav>
+    <a href="#servicios">Servicios</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <div class="hero"><span id="hero-text"></span></div>
+
+  <section class="section" id="servicios">
+    <h2>Servicios Médicos</h2>
+    <div class="card-grid">
+      <div class="card"><h3>Diagnostico por ID</h3><p></p></div>
+      <div class="card"><h3>Análisis forense</h3><p></p></div>
+      <div class="card"><h3>Pruebas de paternidad</h3><p></p></div>
+	<div class="card"><h3>Análisis de beboteo</h3><p></p></div>
+	<div class="card"><h3>Examen de valoración de vida</h3><p></p></div>
+	<div class="card"><h3>Revisión de cola</h3><p></p></div>
+	<div class="card"><h3>Control de mareos</h3><p></p></div>
+	<div class="card"><h3>Pruebas de alopecia </h3><p></p></div>  
+	<div class="card"><h3>Control de ira </h3><p></p></div>  
+	<div class="card"><h3>Test psicologico de licenciatura</h3><p></p></div>  
+	<div class="card"><h3>Exámen para vacaciones (PO 1)</h3><p></p></div>  
+	<div class="card"><h3>Pruebas de visión gráfica</h3><p></p></div>  
+	  
+  </div>
+  </section>
+
+  <section class="equipo-bg" id="equipo">
+    <h2>Equipo Médico</h2>
+    <div class="card-grid">
+      <div class="card"><h3>Dra. Yoli</h3><p>Jefa de Trauma. 20 años de experiencia clínica, socia principal de la asociación médica de traumas, experta en casos traumáticos, accidentes graves, caos y crisis de alto nivel.</p></div>
+      <div class="card"><h3>Dr. Gonza</h3><p>Jefe Medicina Interna. Miembro de la Sociedad Medica contra en enojo y la ira, especialista en emergencias, control de caos y medicina interna. No le tiembla la mano al realizar su trabajo.</p></div>
+      <div class="card"><h3>Dra. Blanca </h3><p> Jefa Neurocirugía. Integranté del comité "neuronas por el mundo". Experta en diagnóstico por imagen y tecnología médica, ayuda a la gente que tiene inconvenientes con el cerebro y no piensan bien.</p></div>
+	 <div class="card"><h3>Dr. Mauri </h3><p> Jefe UCI. Con Certificación en control de pacientes críticos y monitoreo vital, apoyo en conjunto con otras áreas recibiendo los pacientes de mayor gravedad.</p></div>
+
+
+
+
+    </div>
+  </section>
+
+  <section class="section" id="contacto">
+    <h2>Contáctanos</h2>
+    <div class="card">
+      <p><strong>Dirección:</strong> Calle sin rol 007 </p>
+      <p><strong>Teléfono:</strong> /entorno </p>
+      <p><strong>Email:</strong> contacto@Modsmeds.com</p>
+      <p><strong>Horario:</strong> Lunes a Domingo, 12:00 – 06:00 hrs</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 ModsMeds: Centro Médico. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    // Máquina de escribir
+   const text = "Atención médica de primer nivel, mejor que el hospital al que usted va.";
+    let i = 0;
+    const speed = 50;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("hero-text").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+
+    // Animación de aparición al hacer scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.card').forEach(card => {
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
