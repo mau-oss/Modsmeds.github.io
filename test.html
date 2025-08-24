@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examen de licenciatura del rol</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul-profundo: #003f88;
+      --celeste: #a9d6e5;
+      --verde-esmeralda: #00b894;
+      --gris-azulado: #e0e7ef;
+      --gris-oscuro: #2c3e50;
+      --blanco: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--gris-azulado);
+      color: var(--gris-oscuro);
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--azul-profundo);
+    }
+
+    #quizForm {
+      max-width: 700px;
+      margin: auto;
+      background: var(--blanco);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .question {
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .question h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 0.3rem;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: var(--verde-esmeralda);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00997a;
+    }
+
+    #result {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      color: var(--gris-oscuro);
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 Test Troll para Viewers de GTA RP</h1>
+  <form id="quizForm">
+    <div id="questions"></div>
+    <button type="submit">Ver diagnóstico egocéntrico</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      "¿Tu personaje favorito es tan profundo que necesita terapia, un spin-off y una trilogía en Netflix?",
+      "¿Alguna vez has reclamado sin tener razón mientras ves cómo arrestan a tu favorito?",
+      "¿El lore de su personaje es tan complejo que requiere subtítulos y un mapa genealógico?",
+      "¿Te ofendes cuando alguien comenta a tu pj favorito sin saber la historia completa desde el episodio 1?",
+      "¿Tu personaje favorito tiene más trauma que desarrollo, pero igual exige respeto?",
+      "¿Has amenazado con funar en tw porque no respetaron el arco narrativo de tu favorito?",
+      "¿Crees que el rol serio empieza cuando tu personaje entra en cámara lenta con fondo musical?",
+      "¿Tu favorito tiene más títulos que un rector universitario, pero no sabe abrir una puerta?",
+      "¿Has corregido el rol de otros desde el chat sin haber roleado ni una línea en semanas?",
+      "¿Tu personaje favorito es tan importante que debería tener su propio canal de voz, foro y merchandising?",
+      "¿Te molesta que otros improvisen porque interrumpen tu guión mental de 12 actos?",
+      "¿Tu personaje tiene una relación con otro personaje que no sabe que están saliendo?",
+      "¿Has llorado en Discord porque alguien roleó que no conocía a tu favorito?",
+      "¿Tu favorito es tan legendario que cualquier interacción con él debe ser aprobada por el consejo del lore?",
+      "¿Crees que el rol serio murió el día que alguien no usó me y do?"
+    ];
+
+    const options = [
+      ["Sí, y merece un Oscar", "No, pero lo estoy escribiendo", "Solo tiene trauma y ego"],
+      ["Sí, y me ofendo", "No, pero me duele", "Lo acepto como parte del lore"],
+      ["Sí, y aún así nadie lo entiende", "No, pero debería", "Es confuso y sagrado"],
+      ["Sí, y me desconecto", "No, pero lo escribo en el foro", "Lo ignoro mientras lloro"],
+      ["Sí, y exige respeto", "No, pero actúa como si", "Tiene más drama que sentido"],
+      ["Sí, y lo anuncié en Twitter", "No, pero lo pensé", "Solo lloré en privado"],
+      ["Sí, y lo edité en Premiere", "No, pero lo imagino", "Solo entro corriendo"],
+      ["Sí, y exige reverencia", "No, pero tiene diplomas", "Solo sabe gritar"],
+      ["Sí, y lo hago con orgullo", "No, pero lo pienso", "Solo observo y juzgo"],
+      ["Sí, y ya tiene merchandising", "No, pero lo merece", "Solo tiene stickers"],
+      ["Sí, y me molesta", "No, pero me incomoda", "Improvisar es pecado"],
+      ["Sí, y el otro no lo sabe", "No, pero lo imagino", "Solo yo lo entiendo"],
+      ["Sí, y fue real", "No, pero me dolió", "Solo lloré en silencio"],
+      ["Sí, y tengo un comité", "No, pero lo propuse", "Solo yo decido"],
+      ["Sí, y me fui del servidor", "No, pero me quejé", "Lo denuncié por rol ofensivo"]
+    ];
+
+    const scores = options.map(row => row.map((_, i) => i)); // 0, 1, 2
+
+    const results = [
+      "🥚 Nivel 0 – *Viewer con WiFi emocional*: solo observa, juzga y llora en silencio.",
+      "🐣 Nivel 1 – *Fanático de mi puppy*: cree que su personaje merece una estatua y un himno.",
+      "🐔 Nivel 2 – *Roleador frustrado*: su historia mental es tan compleja que ni él la entiende pero no puede rolearla.",
+      "🦅 Nivel 3 – *Licenciado del rol serio*: Cree que lo sabe todo, corrige todo, improvisa nada, y respira como si fuese canon.",
+      "🐉 Nivel 4 – *Seguidor del Lore*: exige respeto, reverencia y que todos le sigan el lore a su pj favorito.",
+      "👑 Nivel 5 – *Buscador del protagonismo*: Todo rol escena y personaje debe girar en torno al ego de sus personajes favoritos."
+    ];
+
+    const quizContainer = document.getElementById("questions");
+
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.style.animationDelay = `${i * 0.1}s`;
+      div.innerHTML = `<h3>${i + 1}. ${q}</h3>`;
+      const opts = options[i];
+      const optHTML = opts.map((opt, j) => `
+        <label>
+          <input type="radio" name="q${i}" value="${scores[i][j]}" required />
+          ${opt}
+        </label>
+      `).join("");
+      div.innerHTML += `<div class="options">${optHTML}</div>`;
+      quizContainer.appendChild(div);
+    });
+
+    document.getElementById("quizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let score = 0;
+      for (let i = 0; i < questions.length; i++) {
+        const val = document.querySelector(`input[name="q${i}"]:checked`);
+        if (val) score += parseInt(val.value);
+      }
+
+      let resultIndex = 0;
+      if (score >= 10 && score < 15) resultIndex = 1;
+      else if (score >= 15 && score < 20) resultIndex = 2;
+      else if (score >= 20 && score < 25) resultIndex = 3;
+      else if (score >= 25 && score < 30) resultIndex = 4;
+      else if (score >= 30) resultIndex = 5;
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.style.opacity = "0";
+      resultDiv.innerHTML = results[resultIndex];
+      setTimeout(() => {
+        resultDiv.style.opacity = "1";
+      }, 100);
+    });
+  </script>
+</body>
+</html>
